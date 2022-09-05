@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     var countries: [String] = []
     var score = 0
     var correctAnswer = 0
+    var questionCount = 0
  
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,28 +38,47 @@ class ViewController: UIViewController {
         countries.shuffle()
         correctAnswer = Int.random(in: 0...2)
         
+        questionCount += 1
+        
         button1.setImage(UIImage(named: countries[0]), for: .normal)
         button2.setImage(UIImage(named: countries[1]), for: .normal)
         button3.setImage(UIImage(named: countries[2]), for: .normal)
         
-        title = countries[correctAnswer].uppercased()
+        let countryName = countries[correctAnswer].uppercased()
+        title = "Guess: \(countryName)  Score: \(score)"
+    }
+    
+    func resetGame(action: UIAlertAction! = nil) {
+        questionCount = 0
+        score = 0
+        askQuestion()
     }
     
     @IBAction func buttonTapped(_ sender: UIButton) {
         var title: String
+        var message: String
         
         if sender.tag == correctAnswer {
             title = "Correct!"
             score += 1
+            message = "Your score is \(score)."
         } else {
             title = "Wrong"
             score -= 1
+            message = "That is the flag of \(countries[sender.tag].uppercased()). Your score is \(score)."
         }
         
-        let ac = UIAlertController(title: title, message: "Your score is \(score)", preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: askQuestion))
+        if questionCount == 10 {
+            let finalAC = UIAlertController(title: "FINAL SCORE", message: "You scored \(score) out of 10.", preferredStyle: .alert)
+            finalAC.addAction(UIAlertAction(title: "Restart", style: .default, handler: resetGame))
         
-        present(ac, animated: true)
+            present(finalAC, animated: true)
+        } else {
+            let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: askQuestion))
+            
+            present(ac, animated: true)
+        }
     }
 }
 
