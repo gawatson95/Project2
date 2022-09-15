@@ -31,6 +31,8 @@ class ViewController: UIViewController {
         button2.layer.borderColor = UIColor.lightGray.cgColor
         button3.layer.borderColor = UIColor.lightGray.cgColor
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "questionmark"), style: .plain, target: self, action: #selector(scoreTapped))
+        
         askQuestion()
     }
 
@@ -45,7 +47,7 @@ class ViewController: UIViewController {
         button3.setImage(UIImage(named: countries[2]), for: .normal)
         
         let countryName = countries[correctAnswer].uppercased()
-        title = "Guess: \(countryName)  Score: \(score)"
+        title = "Guess: \(countryName)"
     }
     
     func resetGame(action: UIAlertAction! = nil) {
@@ -69,7 +71,7 @@ class ViewController: UIViewController {
         }
         
         if questionCount == 10 {
-            let finalAC = UIAlertController(title: "FINAL SCORE", message: "You scored \(score) out of 10.", preferredStyle: .alert)
+            let finalAC = UIAlertController(title: "FINAL SCORE", message: "You scored \(score)", preferredStyle: .alert)
             finalAC.addAction(UIAlertAction(title: "Restart", style: .default, handler: resetGame))
         
             present(finalAC, animated: true)
@@ -79,6 +81,14 @@ class ViewController: UIViewController {
             
             present(ac, animated: true)
         }
+    }
+    
+    @objc func scoreTapped() {
+        let score = score
+        let ac = UIAlertController(title: "Score", message: "Your score is \(score)", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Continue", style: .default))
+        ac.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        present(ac, animated: true)
     }
 }
 

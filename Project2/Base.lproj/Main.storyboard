@@ -21,6 +21,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="2WV-Ld-0me"/>
                                     <constraint firstAttribute="width" constant="200" id="Oy8-v2-6b2"/>
+                                    <constraint firstAttribute="width" secondItem="OlK-i5-m8i" secondAttribute="height" multiplier="2:1" id="Xqe-Fp-enN"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="us"/>
@@ -32,6 +33,7 @@
                                 <rect key="frame" x="95" y="230" width="200" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="2vG-mP-Qbj"/>
+                                    <constraint firstAttribute="width" secondItem="2Co-Hc-104" secondAttribute="height" multiplier="2:1" id="4Tt-2N-d6i"/>
                                     <constraint firstAttribute="width" constant="200" id="NDE-4q-xok"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
@@ -43,6 +45,7 @@
                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ApI-W5-rzG">
                                 <rect key="frame" x="95" y="360" width="200" height="100"/>
                                 <constraints>
+                                    <constraint firstAttribute="width" secondItem="ApI-W5-rzG" secondAttribute="height" multiplier="2:1" id="b3K-o1-6NH"/>
                                     <constraint firstAttribute="width" constant="200" id="kZo-xg-X8n"/>
                                     <constraint firstAttribute="height" constant="100" id="nJ8-sW-Qw4"/>
                                 </constraints>
@@ -62,6 +65,9 @@
                             <constraint firstItem="OlK-i5-m8i" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="ZUo-PN-XGy"/>
                             <constraint firstItem="OlK-i5-m8i" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="9" id="do9-L0-rcY"/>
                             <constraint firstItem="ApI-W5-rzG" firstAttribute="top" secondItem="2Co-Hc-104" secondAttribute="bottom" constant="30" id="iQV-Oc-hRs"/>
+                            <constraint firstItem="ApI-W5-rzG" firstAttribute="height" secondItem="2Co-Hc-104" secondAttribute="height" id="jRD-Nn-8yL"/>
+                            <constraint firstItem="2Co-Hc-104" firstAttribute="height" secondItem="OlK-i5-m8i" secondAttribute="height" id="oYr-xQ-MAR"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ApI-W5-rzG" secondAttribute="bottom" constant="20" id="uwV-Jf-grA"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="7oj-mc-299"/>
