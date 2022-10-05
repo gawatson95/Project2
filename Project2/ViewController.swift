@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     
     var countries: [String] = []
     var score = 0
+    var highScore = 0
     var correctAnswer = 0
     var questionCount = 0
  
@@ -34,6 +35,16 @@ class ViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "questionmark"), style: .plain, target: self, action: #selector(scoreTapped))
         
         askQuestion()
+        
+        let defaults = UserDefaults.standard
+        if let savedHighScore = defaults.object(forKey: "highScore") as? Data {
+            let decoder = JSONDecoder()
+            do {
+                highScore = try decoder.decode(Int.self, from: savedHighScore)
+            } catch {
+                print("Failed to fetch high score.")
+            }
+        }
     }
 
     func askQuestion(action: UIAlertAction! = nil) {
@@ -71,10 +82,18 @@ class ViewController: UIViewController {
         }
         
         if questionCount == 10 {
-            let finalAC = UIAlertController(title: "FINAL SCORE", message: "You scored \(score)", preferredStyle: .alert)
-            finalAC.addAction(UIAlertAction(title: "Restart", style: .default, handler: resetGame))
-        
-            present(finalAC, animated: true)
+            print(score)
+            print(highScore)
+            if score > highScore {
+                let ac = UIAlertController(title: "New high score!", message: "Woah you just beat your high score of \(highScore). Awesome!", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "Play Again", style: .default, handler: resetGame))
+                present(ac, animated: true)
+                saveHighScore(score)
+            } else {
+                let finalAC = UIAlertController(title: "FINAL SCORE", message: "You scored \(score)", preferredStyle: .alert)
+                finalAC.addAction(UIAlertAction(title: "Restart", style: .default, handler: resetGame))
+                present(finalAC, animated: true)
+            }
         } else {
             let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: askQuestion))
@@ -89,6 +108,17 @@ class ViewController: UIViewController {
         ac.addAction(UIAlertAction(title: "Continue", style: .default))
         ac.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
         present(ac, animated: true)
+    }
+    
+    func saveHighScore(_ score: Int) {
+        let encoder = JSONEncoder()
+        
+        if let savedScore = try? encoder.encode(score) {
+            let defaults = UserDefaults.standard
+            defaults.set(savedScore, forKey: "highScore")
+        } else {
+            print("Failed to save high score.")
+        }
     }
 }
 
