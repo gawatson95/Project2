@@ -71,6 +71,10 @@ class ViewController: UIViewController {
         var title: String
         var message: String
         
+        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.3, initialSpringVelocity: 5) {
+            sender.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        }
+        
         if sender.tag == correctAnswer {
             title = "Correct!"
             score += 1
@@ -100,6 +104,7 @@ class ViewController: UIViewController {
             
             present(ac, animated: true)
         }
+        sender.transform = .identity
     }
     
     @objc func scoreTapped() {
